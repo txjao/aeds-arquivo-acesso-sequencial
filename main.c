@@ -3,6 +3,7 @@
 #include <locale.h>
 
 
+//int countNumRows(FILE*arquivo);
 
 int main()
 {
@@ -13,13 +14,13 @@ int main()
     FILE * filePar;
     FILE * filePrimos;
 
-    int controle;
+    int control, numRowsAux,numRows=0;
 
     do
     {
         printf("Qual opção deseja: \n 1-armazenar 64 digitos \n 2-Separar par de impar \n 3- armazenar primos \n 4- ler valores\n 0- sair \n");
-        scanf("%i", &controle);
-        switch(controle)
+        scanf("%i", &control);
+        switch(control)
         {
         case 1:
 
@@ -58,21 +59,32 @@ int main()
             }
             else
             {
-                for(int i = 0; i < 64; i++)
+                while((numRowsAux = fgetc(fibonacci)) != EOF)
                 {
-                    unsigned long long n;
-                    fscanf(fibonacci,"%llu\n", &n);
+                    numRows++;
+                    for(int i = 0; i < numRows; i++)
+                    {
+                        for(int i = 0; i < numRows; i++)
+                        {
+                            unsigned long long n;
+                            fscanf(fibonacci,"%llu\n", &n);
 
-                    if(n %2 == 0)
-                    {
-                        printf("Par:   %15llu\n", n);
-                        fprintf(filePar,"%llu\n", n);
+                            if(n %2 == 0)
+                            {
+                                printf("Par:   %15llu\n", n);
+                                fprintf(filePar,"%llu\n", n);
+                            }
+                            else
+                            {
+                                printf("Impar:   %15llu\n", n);
+                                fprintf(fileImpar,"llu\n",n);
+                            }
+                            break;
+                        }
+
                     }
-                    else
-                    {
-                        printf("Impar: %15llu\n", n);
-                        fprintf(fileImpar,"llu\n",n);
-                    }
+
+
                 }
             }
             fclose(filePar);
@@ -88,33 +100,38 @@ int main()
             }
             else
             {
-                for(int i = 0; i < 64; i++)
+                while((numRowsAux = fgetc(fibonacci)) != EOF)
                 {
-                    unsigned long long n;
-                    fscanf(fibonacci,"%llu\n", &n);
-
-
-                    int d = 2;
-                    int EhPrimo = 1;
-                    if (n <= 1)
-                        EhPrimo = 0;
-
-                    while (EhPrimo == 1 && d <= n / 2)
+                    numRows++;
+                    for(int i = 0; i < numRows; i++)
                     {
-                        if (n % d  == 0)
+                        unsigned long long n;
+                        fscanf(fibonacci,"%llu\n", &n);
+
+
+                        int d = 2;
+                        int EhPrimo = 1;
+                        if (n <= 1)
                             EhPrimo = 0;
-                        d = d + 1;
-                    }
 
-                    if (EhPrimo == 1)
-                    {
-                        printf("Primo:   %llu\n", n);
-                        fprintf(filePrimos,"%llu\n", n);
+                        while (EhPrimo == 1 && d <= n / 2)
+                        {
+                            if (n % d  == 0)
+                                EhPrimo = 0;
+                            d = d + 1;
+                        }
+
+                        if (EhPrimo == 1)
+                        {
+                            printf("Primo:   %llu\n", n);
+                            fprintf(filePrimos,"%llu\n", n);
+                        }
                     }
                 }
             }
             fclose(filePrimos);
             break;
+
 
         case 4:
             do
@@ -123,7 +140,7 @@ int main()
 
                 printf("\n Digite um número: \n");
                 printf("Digite um número negativo para sair! \n");
-                scanf("%i", &controle);
+                scanf("%i", &control);
 
 
                 if( fibonacci == NULL)
@@ -138,17 +155,11 @@ int main()
 
                         fscanf(fibonacci,"%llu\n", &n[i+1]);
 
-                        if(controle == n[i])
+                        if(control == n[i])
 
                         {
                             printf("Posição: %i Número: %llu\n", i,n[i], "\n");
 
-                            break;
-                        }
-                        else
-                        {
-
-                            printf("O número não está no arquivo!");
                             break;
                         }
 
@@ -157,18 +168,32 @@ int main()
 
                 fclose(fibonacci);
             }
-            while(controle > -1);
+            while(control > -1);
             break;
+
         }
 
 
-    }
-    while(controle != 0);
+    }while(control != 0);
+
 
 
 }
 
 
+
+//  int countNumRows(FILE*arquivo)
+//  {
+//      int numRows=0, numRowsAux;
+//      arquivo = fopen(arquivo,"w");
+
+//     while ((numRowsAux = fgetc(arquivo)) != EOF )
+//      {
+//          numRows++;
+//      }
+
+//     return numRows;
+// }
 
 
 
