@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1667700645 source:/home/joao/Documentos/Projetos/Trabalho-AED-File/main.c
+	<stdio.h>
+	<stdlib.h>
+	<locale.h>
+
